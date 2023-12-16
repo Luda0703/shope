@@ -31,9 +31,31 @@ const Header = () => {
               <use xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#search`} />
             </svg>
         </div>
-        <div className={styles.input}></div>
-
+        <div className={styles.input}>
+            <input 
+            type='search' 
+            name='search' 
+            placeholder="Search for anyting..." 
+            autoComplete="off"
+            onChange={()=>{}}
+            value=''/>
+        </div>
+        {false &&<div className={styles.box}></div>}
         </form>
+
+        <div className={styles.account}>
+            <Link to={ROUTES.HOME} className={styles.favorites}>
+            <svg className={styles['icon-fav']}>
+              <use xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#heart`} />
+            </svg>
+            </Link>
+            <Link to={ROUTES.CART} className={styles.cart}>
+            <svg className={styles['icon-cart']}>
+              <use xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#bag`} />
+            </svg>
+            <span className={styles.count}>2</span>
+            </Link>
+        </div>
       </div>
     </div>
   );
