@@ -8,11 +8,11 @@ import Product from "./Product";
 import Products from "./Products";
 
 const SingleProduct = () => {
-    const dispetch = useDispatch();
+    const dispatch = useDispatch();
     const {id} =useParams();
 
     const navigate = useNavigate();
-    const {related} = useSelector(({products}) => products);
+    const {list, related} = useSelector(({products}) => products);
 
     const {data, isLoading, isFetching, isSuccess} = useGetProductQuery({id});
 
@@ -23,11 +23,10 @@ const SingleProduct = () => {
     }, [isFetching, isLoading, isSuccess])
 
     useEffect(() => {
-        if(data) {
-            dispetch(getRelatedProducts(data.category.id))
-        }
-
-    }, [data, dispetch])
+        if (!data || !list.length) return;
+    
+        dispatch(getRelatedProducts(data.category.id));
+      }, [data, dispatch, list.length]);
 
     return ( 
     !data ? (
