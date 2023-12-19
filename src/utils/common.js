@@ -1,0 +1,1 @@
+export const suffle = (err) => [...err].sort(() => 0.5 - Math.random())
