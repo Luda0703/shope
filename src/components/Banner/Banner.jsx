@@ -20,7 +20,7 @@ const Banner = () => {
             style={{ backgroundImage: `url(${bannerImg})` }}
             >
                 <p className={styles.discount}>
-                    save up to <spen>50%</spen> off
+                    save up to <span>50%</span> off
                 </p>
             </div>
 
