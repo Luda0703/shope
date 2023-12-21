@@ -1,4 +1,4 @@
-export const suffle = (err) => [...err].sort(() => 0.5 - Math.random());
+export const shuffle = (err) => [...err].sort(() => 0.5 - Math.random());
 
 export const buildUrl = (url, params) => {
     let urlWithParams = url;
