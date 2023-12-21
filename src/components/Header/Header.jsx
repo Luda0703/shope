@@ -9,6 +9,7 @@ import LOGO from "../../images/logo.svg";
 import AVATAR from "../../images/avatar.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleForm } from "../../features/user/userSlice";
+import { useGetProductsQuery } from "../../features/api/apiSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,8 @@ const Header = () => {
   const {currentUser} = useSelector(({user}) => user);
 
   const [values, setValues] = useState({ name: "Guest", avatar: AVATAR });
+  const [searchValue, setSearchValue] = useState('');
+
 
   useEffect(() => {
     if(!currentUser) return;
@@ -28,6 +31,12 @@ const Header = () => {
     if (!currentUser) dispatch(toggleForm(true));
     else navogate(ROUTES.PROFILE);
   }
+
+  const handleSearch = ({target: {value}}) => {
+    setSearchValue(value)
+  }
+
+  const {data, isLoading} = useGetProductsQuery({title: searchValue});
 
   return (
     <div className={styles.header}>
@@ -56,11 +65,35 @@ const Header = () => {
             type='search' 
             name='search' 
             placeholder="Search for anyting..." 
-            autoComplete="off"
-            onChange={()=>{}}
-            value=''/>
+            // autoComplete="off"
+            onChange={handleSearch}
+            value={searchValue}
+            />
         </div>
-        {false &&<div className={styles.box}></div>}
+        {searchValue && (
+            <div className={styles.box}>
+              {isLoading
+                ? "Loading"
+                : !data
+                ? "No results"
+                : data.map(({ title, images, id }) => {
+                    return (
+                      <Link
+                        key={id}
+                        onClick={() => setSearchValue("")}
+                        className={styles.item}
+                        to={`/products/${id}`}
+                      >
+                        <div
+                          className={styles.image}
+                          style={{ backgroundImage: `url(${images[0]})` }}
+                        />
+                        <div className={styles.title}>{title}</div>
+                      </Link>
+                    );
+                  })}
+            </div>
+          )}
         </form>
 
         <div className={styles.account}>
