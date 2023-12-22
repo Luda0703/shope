@@ -40,7 +40,6 @@ const Category = () => {
     setItems([]);
     setEnd(false);
     setParams({ ...defaultParams, categoryId: id });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   useEffect(() => {
